@@ -12,8 +12,6 @@ const font = Poppins({
 })
 
 export default function Logo({ }: Props) {
-    console.log(font.className);
-
     return (
         <div className='flex flex-col items-center gap-y-4'>
             <div className='bg-white rounded-full p-1'>

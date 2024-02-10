@@ -1,4 +1,4 @@
-export type PayloadType = {
+export type UserPayloadType = {
     data: {
         backup_code_enabled: boolean;
         banned: boolean;
