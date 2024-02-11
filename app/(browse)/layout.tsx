@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import Navbar from './_component/navbar';
-import SideBar from './_component/sidbar';
+import SideBar, { SideBarSkeleton } from './_component/sidbar';
 import Container from './_component/container';
 
 type Props = {
@@ -12,7 +12,12 @@ export default function layout({ children }: Props) {
         <>
             <Navbar />
             <div className='flex h-full pt-20'>
-                <SideBar />
+                {/* Suspense is used to lazy load the sidebar component
+                *  it will show a skeleton UI while the sidebar is loading
+                */}
+                <Suspense fallback={<SideBarSkeleton />}>
+                    <SideBar />
+                </Suspense>
                 <Container>
                     {children}
                 </Container>

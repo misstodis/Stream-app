@@ -6,6 +6,7 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { useSideBar } from '@/store/use-sidebar';
 import Hint from '@/components/hint';
+import { Skeleton } from '@/components/ui/skeleton';
 
 type Props = {}
 
@@ -54,5 +55,14 @@ export default function Toggle({ }: Props) {
                 </div>
             )}
         </>
+    )
+}
+
+export const ToggleSkeleton = () => {
+    return (
+        <div className='p-3 pl-6 mb-2 pr-5 hidden lg:flex justify-between items-center w-full'>
+            <Skeleton className='w-20 h-5' />
+            <Skeleton className='w-6 h-6' />
+        </div>
     )
 }
