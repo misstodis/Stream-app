@@ -2,20 +2,41 @@ import { db } from "./db";
 import { getSelf } from "./auth-service";
 
 export const getRecommended = async () => {
-    // const currentUser = await getSelf();
+    let userId;
+
+    try {
+        const currentUser = await getSelf();
+        userId = currentUser.externalUserId;
+
+    } catch (error) {
+        userId = null;
+        console.log('error', error);
+    }
 
     // this using a fake delay to simulate the network request for skeleton
-    // await new Promise((resolve) => setTimeout(resolve, 5000));
+    await new Promise((resolve) => setTimeout(resolve, 2000));
 
-    const userCollection = db.user.findMany({
+    let userCollection = [];
+
+    if (userId !== null) {
+        userCollection = await db.user.findMany({
+            orderBy: {
+                createdAt: "desc"
+            },
+            where: {
+                NOT: {
+                    externalUserId: userId
+                }
+            }
+        });
+
+        return userCollection;
+    }
+
+    userCollection = await db.user.findMany({
         orderBy: {
             createdAt: "desc"
-        },
-        // where: {
-        //     NOT: {
-        //         externalUserId: currentUser.externalUserId
-        //     }
-        // }
+        }
     });
 
     return userCollection;

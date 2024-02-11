@@ -4,6 +4,12 @@ import { WebhookEvent } from '@clerk/nextjs/server'
 import { db } from '@/lib/db'
 import { UserPayloadType } from '@/Type/auth/UserPayloadType'
 
+/**
+ * this hook is called when a user is created, updated or deleted
+ * and it syncs the user with the database (mysql databse)
+ * but if you want it working you need to deploy it to a server (example: ngrok)
+ * if you don't this won't sync the user from clerk to the your database
+ */
 export async function POST(req: Request) {
 
     // You can find this in the Clerk Dashboard -> Webhooks -> choose the webhook
