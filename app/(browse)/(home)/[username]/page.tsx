@@ -1,4 +1,8 @@
+import NotFound from '@/components/not-found';
+import { isFollowingUser } from '@/lib/follow-service';
+import { getUserByName } from '@/lib/user-service';
 import React from 'react'
+import Action from './action';
 
 type Props = {
     params: {
@@ -8,8 +12,25 @@ type Props = {
     }
 }
 
-export default function UserPage({ params }: Props) {
+export default async function UserPage({ params }: Props) {
+    const user = await getUserByName(params.username);
+
+    if (!user) {
+        return (
+            <NotFound />
+        )
+    }
+
+    const isFollowing = await isFollowingUser(user.id);
+
     return (
-        <div>User: {params.username}</div>
+        <div className='flex flex-col gap-y-4'>
+            <p>userName :{user.username}</p>
+            <p>userID :{user.externalUserId}</p>
+            <p>is following :{`${isFollowing}`}</p>
+            <Action
+                isFollowing={isFollowing}
+            />
+        </div>
     )
 }
