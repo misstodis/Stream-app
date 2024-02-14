@@ -6,7 +6,7 @@ export const getRecommended = async () => {
 
     try {
         const currentUser = await getSelf();
-        userId = currentUser.externalUserId;
+        userId = currentUser.id;
 
     } catch (error) {
         userId = null;
@@ -20,13 +20,27 @@ export const getRecommended = async () => {
 
     if (userId !== null) {
         userCollection = await db.user.findMany({
+            where: {
+                AND: [
+                    {
+                        NOT: {
+                            id: userId
+                        }
+                    },
+                    {
+                        //not recommended user that is already followed
+                        NOT: {
+                            followBy: {
+                                some: {
+                                    followerId: userId
+                                }
+                            }
+                        }
+                    }
+                ],
+            },
             orderBy: {
                 createdAt: "desc"
-            },
-            where: {
-                NOT: {
-                    externalUserId: userId
-                }
             }
         });
 

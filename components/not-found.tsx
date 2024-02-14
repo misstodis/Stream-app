@@ -17,7 +17,7 @@ export default function NotFound({
                     <h1 className="text-6xl">
                         {!errorCode ? '404' : errorCode}
                     </h1>
-                    <div className="w-full sm:w-10/12 lg:w-8/12 xl:w-6/12">
+                    <div className="w-full flex flex-col justify-center items-center">
                         <Image
                             className="h-96 bg-center bg-cover"
                             src={'/notFound.gif'} alt='notFound'

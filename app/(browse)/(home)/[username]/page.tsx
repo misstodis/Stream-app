@@ -30,6 +30,7 @@ export default async function UserPage({ params }: Props) {
             <p>is following :{`${isFollowing}`}</p>
             <Action
                 isFollowing={isFollowing}
+                userId={user.id}
             />
         </div>
     )
