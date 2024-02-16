@@ -1,17 +1,12 @@
 import { getSelf } from "./auth-service";
 import { db } from "./db";
+import { getUserById } from "./user-service";
 
 export const isFollowingUser = async (id: string) => {
     try {
         const currentUser = await getSelf();
 
-        const otherUser = await db.user.findUnique({
-            where: { id }
-        })
-
-        if (!otherUser) {
-            throw new Error('User not found');
-        }
+        const otherUser = await getUserById(id);
 
         if (otherUser.id === currentUser.id) {
             return true;
@@ -32,16 +27,7 @@ export const isFollowingUser = async (id: string) => {
 
 export const setFollowUser = async (id: string) => {
     const currentUser = await getSelf();
-
-    const otherUser = await db.user.findUnique({
-        where: {
-            id
-        }
-    });
-
-    if (!otherUser) {
-        throw new Error('User not found');
-    }
+    const otherUser = await getUserById(id);
 
     if (otherUser.id === currentUser.id) {
         throw new Error('You cannot follow yourself');
@@ -75,16 +61,7 @@ export const setFollowUser = async (id: string) => {
 
 export const setUnFollowUser = async (id: string) => {
     const currentUser = await getSelf();
-
-    const otherUser = await db.user.findUnique({
-        where: {
-            id
-        }
-    });
-
-    if (!otherUser) {
-        throw new Error('User not found');
-    }
+    const otherUser = await getUserById(id);
 
     if (otherUser.id === currentUser.id) {
         throw new Error('You cannot unfollow yourself');
@@ -119,7 +96,16 @@ export const getFollowedUsers = async () => {
 
         const followedUserCollection = await db.folow.findMany({
             where: {
-                followerId: currentUser.id
+                followerId: currentUser.id,
+
+                // this is to make sure that the following user is not blocking the current user
+                following: {
+                    blocking: {
+                        none: {
+                            blockedId: currentUser.id
+                        }
+                    }
+                }
             },
             include: {
                 following: true
@@ -130,5 +116,4 @@ export const getFollowedUsers = async () => {
     } catch (error) {
         return [];
     }
-
 }

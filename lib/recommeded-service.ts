@@ -19,6 +19,7 @@ export const getRecommended = async () => {
     let userCollection = [];
 
     if (userId !== null) {
+        //find all user that is not the current user
         userCollection = await db.user.findMany({
             where: {
                 AND: [
@@ -28,11 +29,21 @@ export const getRecommended = async () => {
                         }
                     },
                     {
-                        //not recommended user that is already followed
+                        //not recommended user that current login user is already followed
                         NOT: {
                             followBy: {
                                 some: {
                                     followerId: userId
+                                }
+                            }
+                        }
+                    },
+                    {
+                        //not recommended user that current login user is already blocked
+                        NOT: {
+                            blocking: {
+                                some: {
+                                    blockedId: userId
                                 }
                             }
                         }
