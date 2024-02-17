@@ -64,7 +64,6 @@ export async function POST(req: Request) {
                 externalUserId: payload.data.id,
                 username: payload.data.username,
                 ImageUrl: payload.data.image_url,
-                // Create a stream for the user when user is created
                 Stream: {
                     create: {
                         name: `${payload.data.username}'s stream`,
