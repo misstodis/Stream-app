@@ -15,7 +15,7 @@ export default function Wrapper({ children }: Props) {
         <div>
             <aside
                 className={cn(
-                    "fixed left-0 flex flex-col w-60 h-full bg-background border-r border-[#2D2E35] z-50",
+                    "fixed left-0 flex flex-col w-60 h-full bg-background border-r border-[#2D2E35] z-50 transition-all duration-300",
                     collapsed && "w-[70px]"
                 )}
             >
