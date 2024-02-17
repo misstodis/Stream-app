@@ -15,7 +15,7 @@ const font = Poppins({
 export default function Logo({ }: Props) {
     return (
         <Link href={"/"}>
-            <div className='flex items-center gap-x-4 hover:opacity-75 transition'>
+            <div className='flex items-center gap-x-4 hover:opacity-75 transition-all duration-300'>
                 <div className='bg-white rounded-full p-1 mr-10 shrink-0 lg:mr-0 lg:shrink'>
                     <Image src='/ducky.svg'
                         width={32}
@@ -24,7 +24,7 @@ export default function Logo({ }: Props) {
                     />
                 </div>
                 <div className={cn(
-                    "hidden lg:block",
+                    "hidden lg:block transition-all duration-300",
                     font.className
                 )}>
                     <p className='text-lg font-semibold'>

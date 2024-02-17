@@ -40,7 +40,7 @@ export default function Search({ }: Props) {
     return (
         <form
             onSubmit={(e) => onSubmit(e)}
-            className='relative w-full lg:w-[400px] flex items-center'
+            className='relative w-full lg:w-[400px] flex items-center transition-all duration-300'
         >
             <Input
                 value={value}

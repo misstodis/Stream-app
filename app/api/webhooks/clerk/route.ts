@@ -58,12 +58,18 @@ export async function POST(req: Request) {
     const eventType = evt.type;
 
     if (eventType === "user.created") {
-        //create sync user in database
+        // Create a new user in the database (sync with clerk user)
         await db.user.create({
             data: {
                 externalUserId: payload.data.id,
                 username: payload.data.username,
                 ImageUrl: payload.data.image_url,
+                // Create a stream for the user when user is created
+                Stream: {
+                    create: {
+                        name: `${payload.data.username}'s stream`,
+                    }
+                }
             }
         })
     }

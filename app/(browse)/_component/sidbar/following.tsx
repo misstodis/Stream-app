@@ -3,7 +3,6 @@ import { useSideBar } from '@/store/use-sidebar';
 import { Folow, User } from '@prisma/client'
 import React from 'react'
 import UserItem, { UserItemSkeleton } from './user-item';
-import { Key } from 'lucide-react';
 
 type Props = {
     data: (Folow & { following: User })[];
