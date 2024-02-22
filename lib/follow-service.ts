@@ -103,13 +103,17 @@ export const getFollowedUsers = async () => {
                     blocking: {
                         none: {
                             blockedId: currentUser.id
-                        }
-                    }
-                }
+                        },
+                    },
+                },
             },
             include: {
-                following: true
-            }
+                following: {
+                    include: {
+                        Stream: true
+                    }
+                },
+            },
         });
 
         return followedUserCollection;

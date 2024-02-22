@@ -1,15 +1,17 @@
 'use client'
 
 import { useSideBar } from '@/store/use-sidebar';
-import { User } from '@prisma/client';
+import { Stream, User } from '@prisma/client';
 import React from 'react';
 import UserItem, { UserItemSkeleton } from './user-item';
 
 type Props = {
-    data: User[];
+    //data is an array of user and user have a object is stream
+    data: (User & { Stream: Stream | null })[];
 }
 
 export default function Recommended({ data }: Props) {
+
     const { collapsed } = useSideBar((state) => state)
 
     const showLabel = !collapsed && data.length > 0;
@@ -29,7 +31,7 @@ export default function Recommended({ data }: Props) {
                         key={key}
                         userName={user.username}
                         ImageUrl={user.ImageUrl}
-                        isLive={false}
+                        isLive={user.Stream?.isLive}
                     />
                 ))}
             </ul>

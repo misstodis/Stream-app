@@ -50,6 +50,9 @@ export const getRecommended = async () => {
                     }
                 ],
             },
+            include: {
+                Stream: true
+            },
             orderBy: {
                 createdAt: "desc"
             }
@@ -59,6 +62,9 @@ export const getRecommended = async () => {
     }
 
     userCollection = await db.user.findMany({
+        include: {
+            Stream: true
+        },
         orderBy: {
             createdAt: "desc"
         }
