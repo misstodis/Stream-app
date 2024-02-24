@@ -98,7 +98,9 @@ const existingBlock = async (
     const isBlock = await db.block.findUnique({
         where: {
             blockerId_blockedId: {
+                //người block
                 blockerId: blocker.id,
+                //người bị block
                 blockedId: blocked.id
             }
         }

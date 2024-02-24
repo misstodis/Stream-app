@@ -8,7 +8,7 @@ type Props = {
     //data is an array of user and user have a object is stream
     data: (Folow & {
         following: User & {
-            Stream: Stream | null
+            Stream: { isLive: boolean; } | null
         }
     })[];
 }

@@ -7,7 +7,9 @@ import UserItem, { UserItemSkeleton } from './user-item';
 
 type Props = {
     //data is an array of user and user have a object is stream
-    data: (User & { Stream: Stream | null })[];
+    data: (User & {
+        Stream: { isLive: boolean; } | null
+    })[];
 }
 
 export default function Recommended({ data }: Props) {

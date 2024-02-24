@@ -6,7 +6,6 @@
 
 import { db } from "@/lib/db";
 import { WebhookReceiver } from "livekit-server-sdk";
-import { revalidatePath } from "next/cache";
 import { headers } from "next/headers";
 
 // create a new instance of WebhookReceiver

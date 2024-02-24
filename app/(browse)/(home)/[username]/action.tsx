@@ -37,7 +37,7 @@ export default function Action({ isFollowing, userId }: Props) {
     const onBlockHandler = () => {
         startTransition(() => {
             onUnBlock(userId).then((data) => toast.success(`You are now unblocking ${data.blocked.username}`))
-                .catch(() => toast.error('Something went wrong'));
+                .catch((error) => toast.error(error.message));
         });
     }
 
