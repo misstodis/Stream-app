@@ -1,4 +1,3 @@
-import SideBarDashBoard from '@/app/(dashboard)/_component/sidebar'
 import StreamLayer from '@/components/stream-player';
 import { getUserByName } from '@/lib/user-service';
 import { currentUser } from '@clerk/nextjs';
@@ -14,6 +13,9 @@ export default async function CreatorPage({ params }: CreateorPageProps) {
     const externalUser = await currentUser();
     const user = await getUserByName(params.username);
 
+    console.log('user', user);
+    console.log('externalUser', externalUser);
+
     if (!user || user.externalUserId !== externalUser?.id
         || !user.Stream
     ) {
@@ -25,7 +27,7 @@ export default async function CreatorPage({ params }: CreateorPageProps) {
             <StreamLayer
                 user={user}
                 stream={user.Stream}
-                isFollwing={true}
+                isFollowing={true}
             />
         </div>
     )
