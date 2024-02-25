@@ -2,7 +2,7 @@
 
 import { useConnectionState, useRemoteParticipant, useTracks } from '@livekit/components-react';
 import { ConnectionState, Participant, Track } from 'livekit-client';
-import React, { useEffect } from 'react'
+import React from 'react'
 import OfflineVideo from './offline-video';
 import LiveVideo from './live-video';
 

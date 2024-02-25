@@ -13,9 +13,6 @@ export default async function CreatorPage({ params }: CreateorPageProps) {
     const externalUser = await currentUser();
     const user = await getUserByName(params.username);
 
-    console.log('user', user);
-    console.log('externalUser', externalUser);
-
     if (!user || user.externalUserId !== externalUser?.id
         || !user.Stream
     ) {
