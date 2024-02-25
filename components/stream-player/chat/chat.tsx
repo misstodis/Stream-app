@@ -9,6 +9,7 @@ import { Input } from '../../ui/input';
 import ChatHeader from './_component/chat-header';
 import ChatToggle from './_component/chat-toggle';
 import ChatForm from './_component/chat-form';
+import ChatList from './_component/chat-list';
 
 type ChatProps = {
     hostName: string;
@@ -78,15 +79,22 @@ export default function Chat({
 
             {/* chat all */}
             {variant === ChatVariant.CHAT && (
-                <ChatForm
-                    isDelayed={isChatDelayed}
-                    isFollowing={isFollowing}
-                    isFollowersOnly={isChatFollowersOnly}
-                    isHidden={isHidden}
-                    onChangeMessage={onChange}
-                    onSubmitMessage={onSubmit}
-                    messageValue={messageValue}
-                />
+                <>
+                    <ChatList
+                        recivedChatMessages={reversedMessages}
+                        isHidden={isHidden}
+                    />
+                    <ChatForm
+                        isDelayed={isChatDelayed}
+                        isFollowing={isFollowing}
+                        isFollowersOnly={isChatFollowersOnly}
+                        isHidden={isHidden}
+                        onChangeMessage={onChange}
+                        onSubmitMessage={onSubmit}
+                        messageValue={messageValue}
+                    />
+                </>
+
             )}
 
             {/* chat community */}
