@@ -21,7 +21,7 @@ export default function ChatMessage({
                 <p className='text-sm font-semibold whitespace-nowrap'>
                     <span className='truncate'>
                         {data.from?.name}
-                    </span>
+                    </span>:
                 </p>
                 <p className='text-sm break-all'>
                     {data.message}
