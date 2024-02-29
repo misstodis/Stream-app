@@ -4,11 +4,11 @@ import { useViewerToken } from '@/hooks/use-viewer-token';
 import { Stream, User } from '@prisma/client';
 import React from 'react';
 import { LiveKitRoom } from '@livekit/components-react';
-import Video, { VideoSkeleton } from './video';
+import Video, { VideoSkeleton } from './video/video';
 import { useChatSideBar } from '@/store/use-chat-sidebar';
 import { cn } from '@/lib/utils';
 import Chat, { ChatSkeleton } from './chat/chat';
-import ChatToggle from './chat/_component/chat-toggle';
+import ChatToggle from './chat/component/chat-toggle';
 import HeaderStreamLayer, { HeaderStreamLayerSkeleton } from './header/header-stream-layer';
 
 type StreamLayerProps = {

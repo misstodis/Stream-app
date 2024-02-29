@@ -6,11 +6,11 @@ import { useMediaQuery } from 'usehooks-ts';
 import { useChat, useConnectionState, useRemoteParticipant } from '@livekit/components-react';
 import { ConnectionState } from 'livekit-client';
 import { Input } from '../../ui/input';
-import ChatHeader, { ChatHeaderSkeleton } from './_component/chat-header';
-import ChatToggle from './_component/chat-toggle';
-import ChatForm, { ChatFormSkekeleton } from './_component/chat-form';
-import ChatList, { ChatListSkeleton } from './_component/chat-list';
-import ChatCommunity from './_component/chat-community';
+import ChatHeader, { ChatHeaderSkeleton } from './component/chat-header';
+import ChatToggle from './component/chat-toggle';
+import ChatForm, { ChatFormSkekeleton } from './component/chat-form';
+import ChatList, { ChatListSkeleton } from './component/chat-list';
+import ChatCommunity from './component/chat-community';
 import { Skeleton } from '@/components/ui/skeleton';
 
 type ChatProps = {

@@ -3,8 +3,8 @@
 import { Volume1, Volume2, VolumeX } from "lucide-react"
 
 import React from 'react'
-import { Slider } from "../ui/slider";
-import Hint from "../hint";
+import { Slider } from "../../../ui/slider";
+import Hint from "../../../hint";
 
 type Props = {
     onToggleMute: () => void;

@@ -3,9 +3,9 @@
 import { useConnectionState, useRemoteParticipant, useTracks } from '@livekit/components-react';
 import { ConnectionState, Participant, Track } from 'livekit-client';
 import React from 'react'
-import OfflineVideo from './offline-video';
-import LiveVideo from './live-video';
-import { Skeleton } from '../ui/skeleton';
+import OfflineVideo from './component/offline-video';
+import LiveVideo from './component/live-video';
+import { Skeleton } from '../../ui/skeleton';
 
 type Props = {
     hostName: string;
