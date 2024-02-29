@@ -24,8 +24,6 @@ export default function ToggleCard({
     const onChangeStreamUpdateHandler = async () => {
         startTransition(() => {
             // when value true, it will be false and vice versa
-            console.log({ [field]: !value });
-
             onUpdateStream({ [field]: !value })
                 .then(() => {
                     toast.success('Chat setting updated successfully!')
