@@ -10,6 +10,7 @@ import { cn } from '@/lib/utils';
 import Chat, { ChatSkeleton } from './chat/chat';
 import ChatToggle from './chat/component/chat-toggle';
 import HeaderStreamLayer, { HeaderStreamLayerSkeleton } from './header/header-stream-layer';
+import InfoCard from './info-card/info-card';
 
 type StreamLayerProps = {
     user: User & { Stream: Stream | null };
@@ -63,6 +64,12 @@ export default function StreamLayer({
                         imageUrl={user.ImageUrl}
                         isFollowing={isFollowing}
                         streamName={stream.name}
+                    />
+                    <InfoCard
+                        streamName={stream.name}
+                        thumbnailUrl={stream.thumbnailUrl}
+                        hostIdentity={user.id}
+                        viewerIdentity={identity}
                     />
                 </div>
 
