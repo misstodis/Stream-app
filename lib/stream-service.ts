@@ -1,3 +1,4 @@
+
 import { Stream } from "@prisma/client";
 import { db } from "./db";
 import { getSelf } from "./auth-service";
@@ -36,6 +37,7 @@ export const updateStream = async (value: Partial<Stream>) => {
             isChatEnable: value.isChatEnable,
             isChatFollowersOnly: value.isChatFollowersOnly,
             isChatDelay: value.isChatDelay,
+            thumbnailUrl: value.thumbnailUrl
         }
 
         const stream = await db.stream.update({
