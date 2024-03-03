@@ -57,3 +57,85 @@ export const updateStream = async (value: Partial<Stream>) => {
         throw error;
     }
 }
+
+export const getStreams = async () => {
+    let userId;
+
+    try {
+        const currentUser = await getSelf();
+        userId = currentUser.id;
+    }
+    catch {
+        userId = null;
+    }
+
+    let streams = [];
+
+    /**
+     * if user logged in,
+     *  return all streams that host of stream not blocked this user
+     */
+    if (userId) {
+        streams = await db.stream.findMany({
+            where: {
+                user: {
+                    NOT: {
+                        blocking: {
+                            some: {
+                                blockedId: userId
+                            },
+                        },
+                    },
+                },
+            },
+            // juist select fields that we need to use
+            select: {
+                isLive: true,
+                id: true,
+                name: true,
+                thumbnailUrl: true,
+                user: {
+                    select: {
+                        username: true,
+                        ImageUrl: true,
+                    }
+                }
+            },
+            orderBy: [
+                {
+                    isLive: 'desc',
+                },
+                {
+                    updatedAt: 'desc'
+                }
+            ],
+        });
+    }
+    else {
+        // return all streams including user of the stream
+        streams = await db.stream.findMany({
+            select: {
+                isLive: true,
+                id: true,
+                name: true,
+                thumbnailUrl: true,
+                user: {
+                    select: {
+                        username: true,
+                        ImageUrl: true,
+                    }
+                }
+            },
+            orderBy: [
+                {
+                    isLive: 'desc',
+                },
+                {
+                    updatedAt: 'desc'
+                }
+            ]
+        })
+    }
+
+    return streams;
+}
