@@ -11,9 +11,15 @@ import Chat, { ChatSkeleton } from './chat/chat';
 import ChatToggle from './chat/component/chat-toggle';
 import HeaderStreamLayer, { HeaderStreamLayerSkeleton } from './header/header-stream-layer';
 import InfoCard from './info-card/info-card';
+import AboutCard from './about-card/about-card';
 
 type StreamLayerProps = {
-    user: User & { Stream: Stream | null };
+    user: User & {
+        Stream: Stream | null,
+        _count: {
+            followBy: number;
+        };
+    };
     stream: Stream;
     isFollowing: boolean;
 }
@@ -70,6 +76,13 @@ export default function StreamLayer({
                         thumbnailUrl={stream.thumbnailUrl}
                         hostIdentity={user.id}
                         viewerIdentity={identity}
+                    />
+                    <AboutCard
+                        hostName={user.username}
+                        bio={user.bio}
+                        hostIdentity={user.id}
+                        viewerIdentity={identity}
+                        followedByCount={user._count.followBy}
                     />
                 </div>
 

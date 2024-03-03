@@ -39,7 +39,6 @@ export default function InforModal({
                     toast.error(error.message);
                 })
         })
-
     }
 
     return (
@@ -73,7 +72,6 @@ export default function InforModal({
                         <UploadThumbnailImage
                             inittalThumbnailUrl={initialThumbnailUrl}
                         />
-
                     </div>
                     <div className='flex justify-between'>
                         <DialogClose asChild>

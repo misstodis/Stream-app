@@ -1,5 +1,6 @@
 import { db } from "@/lib/db";
 import { UserNotFoundException } from "./exeption/user-service/UserNotFoundException";
+import { User } from "@prisma/client";
 
 export const getUserByName = async (name: string) => {
     const user = await db.user.findUnique({
@@ -7,7 +8,12 @@ export const getUserByName = async (name: string) => {
             username: name
         },
         include: {
-            Stream: true
+            Stream: true,
+            _count: {
+                select: {
+                    followBy: true,
+                },
+            },
         },
     });
 
@@ -20,7 +26,7 @@ export const getUserById = async (id: string) => {
             id
         },
         include: {
-            Stream: true
+            Stream: true,
         },
     });
 
@@ -30,3 +36,16 @@ export const getUserById = async (id: string) => {
 
     return user;
 }
+
+export const updateUser = async (values: Partial<User>, user: User) => {
+    const userUpdate = await db.user.update({
+        where: {
+            id: user.id
+        },
+        data: {
+            ...values
+        }
+    })
+
+    return user;
+};
