@@ -4,6 +4,7 @@ import { getUserByName } from '@/lib/user-service';
 import React from 'react'
 import Action from './action';
 import { isBlockedByUser } from '@/lib/block-service';
+import StreamLayer from '@/components/stream-player';
 
 type Props = {
     params: {
@@ -16,7 +17,7 @@ type Props = {
 export default async function UserPage({ params }: Props) {
     const user = await getUserByName(params.username);
 
-    if (!user) {
+    if (!user || !user.Stream) {
         return (
             <NotFound />
         )
@@ -25,17 +26,17 @@ export default async function UserPage({ params }: Props) {
     const isFollowing = await isFollowingUser(user.id);
     const isBlockedByThisUser = await isBlockedByUser(user.id);
 
-    return (
-        <div className='flex flex-col gap-y-4'>
-            <p>userName :{user.username}</p>
-            <p>userID :{user.externalUserId}</p>
-            <p>is following :{`${isFollowing}`}</p>
-            <p>is blocked by this user :{`${isBlockedByThisUser}`}</p>
+    if (isBlockedByThisUser) {
+        return (
+            <NotFound />
+        )
+    }
 
-            <Action
-                isFollowing={isFollowing}
-                userId={user.id}
-            />
-        </div>
+    return (
+        <StreamLayer
+            isFollowing={isFollowing}
+            user={user}
+            stream={user.Stream}
+        />
     )
 }

@@ -51,52 +51,51 @@ export const creatIngress = async (ingressType: IngressInput) => {
     //when creating a new ingress, we need to reset the old one
     await resetIngress(currentUser.id);
 
-    // const options: CreateIngressOptions = {
-    //     name: currentUser.username,
-    //     roomName: currentUser.id,
-    //     participantName: currentUser.username,
-    //     participantIdentity: currentUser.id,
-    // };
+    const options: CreateIngressOptions = {
+        name: currentUser.username,
+        roomName: currentUser.id,
+        participantName: currentUser.username,
+        participantIdentity: currentUser.id,
+    };
 
+    if (ingressType === IngressInput.WHIP_INPUT) {
+        options.bypassTranscoding = true;
+    } else {
+        options.video = {
+            source: TrackSource.CAMERA,
+            encodingOptions: {
+                case: 'preset',
+                value: IngressVideoEncodingPreset.H264_1080P_30FPS_3_LAYERS,
+            }
+        } as IngressVideoOptions;
 
-    // if (ingressType === IngressInput.WHIP_INPUT) {
-    //     options.bypassTranscoding = true;
-    // } else {
-    //     options.video = {
-    //         source: TrackSource.CAMERA,
-    //         encodingOptions: {
-    //             case: 'preset',
-    //             value: IngressVideoEncodingPreset.H264_1080P_30FPS_3_LAYERS,
-    //         }
-    //     } as IngressVideoOptions;
+        options.audio = {
+            source: TrackSource.MICROPHONE,
+            encodingOptions: {
+                case: 'preset',
+                value: IngressAudioEncodingPreset.OPUS_STEREO_96KBPS
+            }
+        } as IngressAudioOptions;
+    };
 
-    //     options.audio = {
-    //         source: TrackSource.MICROPHONE,
-    //         encodingOptions: {
-    //             case: 'preset',
-    //             value: IngressAudioEncodingPreset.OPUS_STEREO_96KBPS
-    //         }
-    //     } as IngressAudioOptions;
-    // };
+    const ingress = await ingressClient.createIngress(ingressType, options);
 
-    // const ingress = await ingressClient.createIngress(ingressType, options);
+    if (!ingress || !ingress.url || !ingress.streamKey) {
+        throw new Error('Failed to create ingress');
+    }
 
-    // if (!ingress || !ingress.url || !ingress.streamKey) {
-    //     throw new Error('Failed to create ingress');
-    // }
+    await db.stream.update({
+        where: {
+            userId: currentUser.id
+        },
+        data: {
+            ingressId: ingress.ingressId,
+            serverUrl: ingress.url,
+            streamKey: ingress.streamKey,
+        }
+    });
 
-    // await db.stream.update({
-    //     where: {
-    //         userId: currentUser.id
-    //     },
-    //     data: {
-    //         ingressId: ingress.ingressId,
-    //         serverUrl: ingress.url,
-    //         streamKey: ingress.streamKey,
-    //     }
-    // });
+    revalidatePath(`/u/${currentUser.username}/keys}`);
 
-    // revalidatePath(`/u/${currentUser.username}/keys}`);
-
-    // return ingress;
+    return ingress;
 }

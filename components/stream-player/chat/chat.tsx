@@ -5,13 +5,10 @@ import { ChatVariant, useChatSideBar } from '@/store/use-chat-sidebar';
 import { useMediaQuery } from 'usehooks-ts';
 import { useChat, useConnectionState, useRemoteParticipant } from '@livekit/components-react';
 import { ConnectionState } from 'livekit-client';
-import { Input } from '../../ui/input';
 import ChatHeader, { ChatHeaderSkeleton } from './component/chat-header';
-import ChatToggle from './component/chat-toggle';
 import ChatForm, { ChatFormSkekeleton } from './component/chat-form';
 import ChatList, { ChatListSkeleton } from './component/chat-list';
 import ChatCommunity from './component/chat-community';
-import { Skeleton } from '@/components/ui/skeleton';
 
 type ChatProps = {
     hostName: string;

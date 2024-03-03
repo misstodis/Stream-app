@@ -16,8 +16,11 @@ export default function InfoCard({
     thumbnailUrl,
     hostIdentity,
     viewerIdentity,
-
 }: Props) {
+
+    const hostIdentityToken = `host-${hostIdentity}`;
+    const isHost = viewerIdentity === hostIdentityToken;
+
     return (
         <div className='px-4'>
             <div className='rounded-xl bg-background'>
@@ -33,11 +36,15 @@ export default function InfoCard({
                             Maximize your visbility
                         </p>
                     </div>
+
                     {/* Add modal button */}
-                    <InforModal
-                        initialName={streamName}
-                        initialThumbnailUrl={thumbnailUrl}
-                    />
+                    {isHost && (
+                        < InforModal
+                            initialName={streamName}
+                            initialThumbnailUrl={thumbnailUrl}
+                        />
+                    )}
+
                 </div>
                 <Separator />
                 <div className='p-4 lg:p-6 space-y-4'>

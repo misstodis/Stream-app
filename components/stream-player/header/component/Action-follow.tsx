@@ -35,10 +35,10 @@ export default function ActionFollow({
 
         startTransition(() => {
             if (isFollowing) {
-                handleOnFollow();
+                handleOnUnFollow();
             }
             else {
-                handleOnUnFollow();
+                handleOnFollow();
             }
         })
     }
