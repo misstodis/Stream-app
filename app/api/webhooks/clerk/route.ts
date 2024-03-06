@@ -3,6 +3,7 @@ import { headers } from 'next/headers'
 import { WebhookEvent } from '@clerk/nextjs/server'
 import { db } from '@/lib/db'
 import { UserPayloadType } from '@/Type/auth/UserPayloadType'
+import { resetIngress } from '@/actions/ingress'
 
 /**
  * this hook is called when a user is created, updated or deleted
@@ -112,6 +113,9 @@ async function removeUserFromDatabase(payload: UserPayloadType) {
     if (!currentUser) {
         return new Response('Error occured -- user not found', { status: 400 })
     }
+
+    // reset the ingress when use is deleted
+    await resetIngress(payload.data.id);
 
     await db.user.delete({
         where: {

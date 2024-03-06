@@ -108,3 +108,22 @@ const existingBlock = async (
 
     return !!isBlock;
 }
+
+export const findAllBlockForCurrentUser = async () => {
+    try {
+        const currentUser = await getSelf();
+
+        const blockCollection = await db.block.findMany({
+            where: {
+                blockerId: currentUser.id,
+            },
+            include: {
+                blocked: true
+            }
+        });
+
+        return blockCollection;
+    } catch (error) {
+        throw error;
+    }
+};
