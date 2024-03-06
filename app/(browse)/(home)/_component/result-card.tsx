@@ -1,8 +1,6 @@
 import Thumbnaild, { ThumbnaildSkeleton } from '@/components/thumdnail'
-import LiveBadge from '@/components/ui/live-badge'
 import { Skeleton } from '@/components/ui/skeleton'
 import UserAvatar, { UserAvatarSkeleton } from '@/components/user-avatar'
-import { Stream, User } from '@prisma/client'
 import Link from 'next/link'
 import React from 'react'
 
@@ -33,11 +31,6 @@ export default function ResultCard({
                     isLive={data.isLive}
                     userName={data.user.username}
                 />
-                {data.isLive && (
-                    <div className='absolute top-2 left-2 group-hover:translate-x-2 group-hover:-translate-y-2 transition-transform'>
-                        <LiveBadge />
-                    </div>
-                )}
                 <div className='flex gap-x-3'>
                     <UserAvatar
                         userName={data.user.username}

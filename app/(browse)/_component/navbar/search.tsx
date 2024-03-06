@@ -15,6 +15,7 @@ export default function Search({ }: Props) {
     const router = useRouter();
     const [value, setValue] = useState("");
 
+    //when form is submitted (button search is clicked)
     const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
@@ -22,6 +23,7 @@ export default function Search({ }: Props) {
             return;
         }
 
+        //create a url with the value of the search bar
         const url = qs.stringifyUrl({
             'url': '/search',
             query: {

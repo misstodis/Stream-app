@@ -2,6 +2,7 @@ import Image from 'next/image';
 import React from 'react'
 import UserAvatar from './user-avatar';
 import { Skeleton } from './ui/skeleton';
+import LiveBadge from './ui/live-badge';
 
 type Props = {
     thumbnailUlr: string | null;
@@ -48,6 +49,11 @@ export default function Thumbnaild({
         <div className='group aspect-video relative rounded-md cursor-pointer'>
             <div className='rounded-md absolute inset-0 bg-blue-600/80 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center' />
             {content}
+            {isLive && thumbnailUlr && (
+                <div className='absolute top-2 left-2 group-hover:translate-x-2 group-hover:-translate-y-2 transition-transform'>
+                    <LiveBadge />
+                </div>
+            )}
         </div>
     );
 };

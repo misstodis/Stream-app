@@ -13,14 +13,31 @@ import HeaderStreamLayer, { HeaderStreamLayerSkeleton } from './header/header-st
 import InfoCard from './info-card/info-card';
 import AboutCard from './about-card/about-card';
 
+type CustomStream = {
+    id: string,
+    isLive: boolean,
+    isChatDelay: boolean,
+    isChatFollowersOnly: boolean,
+    isChatEnable: boolean,
+    thumbnailUrl: string | null,
+    name: string,
+}
+
+type CustomUser = {
+    id: string,
+    username: string,
+    bio: string | null,
+    ImageUrl: string,
+    externalUserId: string,
+    _count: {
+        followBy: number;
+    },
+
+}
+
 type StreamLayerProps = {
-    user: User & {
-        Stream: Stream | null,
-        _count: {
-            followBy: number;
-        };
-    };
-    stream: Stream;
+    user: CustomUser;
+    stream: CustomStream;
     isFollowing: boolean;
 }
 
