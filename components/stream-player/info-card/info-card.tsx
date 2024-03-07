@@ -21,6 +21,10 @@ export default function InfoCard({
     const hostIdentityToken = `host-${hostIdentity}`;
     const isHost = viewerIdentity === hostIdentityToken;
 
+    if (isHost === false) {
+        return;
+    }
+
     return (
         <div className='px-4'>
             <div className='rounded-xl bg-background'>
